@@ -5,6 +5,7 @@ using NetCoreCommonLibrary.Util;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace NetCoreCommonLibrary.Services
 {
@@ -126,7 +127,7 @@ namespace NetCoreCommonLibrary.Services
              catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
             {
                  // Tentar ler o corpo do erro se possível (pode conter detalhes da validação)
-                 string errorBody = await TryReadErrorBodyAsync(ex.InnerException as HttpResponseMessage);
+                 string errorBody = await TryReadErrorBodyAsync(null);
                  _logger.LogWarning(ex, "Erro de requisição inválida (BadRequest) em POST {RequestUrl}: {StatusCode}. Body: {ErrorBody}", requestUrl, ex.StatusCode, errorBody);
                  return ApiResponse<TResponse>.CreateError($"Requisição inválida para {requestUrl}. {errorBody}", HttpStatusCode.BadRequest);
             }
@@ -180,7 +181,7 @@ namespace NetCoreCommonLibrary.Services
             }
             catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
             {
-                 string errorBody = await TryReadErrorBodyAsync(ex.InnerException as HttpResponseMessage);
+                 string errorBody = await TryReadErrorBodyAsync(null);
                  _logger.LogWarning(ex, "Erro de requisição inválida (BadRequest) em PUT {RequestUrl}: {StatusCode}. Body: {ErrorBody}", requestUrl, ex.StatusCode, errorBody);
                  return ApiResponse.CreateError($"Requisição de atualização inválida para {requestUrl}. {errorBody}", HttpStatusCode.BadRequest);
             }

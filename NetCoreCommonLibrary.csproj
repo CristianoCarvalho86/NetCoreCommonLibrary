@@ -14,8 +14,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" /> 
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
-    <!-- Adicionando referência para EF Core -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" /> 
   </ItemGroup>
 
 </Project> 
