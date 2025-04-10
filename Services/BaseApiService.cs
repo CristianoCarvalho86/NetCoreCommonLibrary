@@ -285,5 +285,4 @@ namespace NetCoreCommonLibrary.Services
             }
         }
     }
-} 
-} 
+}

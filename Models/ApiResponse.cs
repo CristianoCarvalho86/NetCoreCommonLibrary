@@ -112,12 +112,11 @@ namespace NetCoreCommonLibrary.Models
         /// </summary>
         public static ApiResponse CreateSuccess(string message = "Operation completed successfully", HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            var baseResponse = ApiResponse<object>.CreateSuccess(null!, message, statusCode);
             return new ApiResponse
             {
-                Success = baseResponse.Success,
-                Message = baseResponse.Message,
-                StatusCode = baseResponse.StatusCode
+                Success = true,
+                Message = message,
+                StatusCode = statusCode
             };
         }
 
@@ -126,13 +125,12 @@ namespace NetCoreCommonLibrary.Models
         /// </summary>
         public static new ApiResponse CreateError(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest, List<string>? errors = null)
         {
-            var baseResponse = ApiResponse<object>.CreateError(message, statusCode, errors);
             return new ApiResponse
             {
-                Success = baseResponse.Success,
-                Message = baseResponse.Message,
-                StatusCode = baseResponse.StatusCode,
-                Errors = baseResponse.Errors
+                Success = false,
+                Message = message,
+                StatusCode = statusCode,
+                Errors = errors?.AsReadOnly()
             };
         }
         
