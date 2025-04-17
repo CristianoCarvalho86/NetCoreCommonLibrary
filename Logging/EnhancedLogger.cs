@@ -44,6 +44,11 @@ namespace NetCoreCommonLibrary.Logging
                 _innerLogger.Log(logLevel, eventId, state, exception, formatter);
             }
         }
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
