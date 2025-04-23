@@ -2,6 +2,8 @@ using NetCoreCommonLibrary.Data.Entities;
 using NetCoreCommonLibrary.Data.Repositories.Interfaces;
 using NetCoreCommonLibrary.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +62,7 @@ namespace NetCoreCommonLibrary.Services
         public async Task<int> CreateAsync(ReportHeader reportHeader, CancellationToken cancellationToken = default)
         {
              ArgumentNullException.ThrowIfNull(reportHeader);
-            _logger.LogInformation("Criando novo ReportHeader com título: {Title}", reportHeader.Title);
+            _logger.LogInformation("Criando novo ReportHeader com nome: {Name}", reportHeader.Name);
 
             // Definir CreatedAt e UpdatedAt antes de salvar
             // Usar UtcNow para consistência, especialmente em ambientes distribuídos
@@ -77,7 +79,7 @@ namespace NetCoreCommonLibrary.Services
             catch (Exception ex)
             {
                  // Logar detalhes do reportHeader pode vazar dados sensíveis se não for cuidadoso
-                 _logger.LogError(ex, "Erro ao criar ReportHeader com título: {Title}", reportHeader.Title);
+                 _logger.LogError(ex, "Erro ao criar ReportHeader com nome: {Name}", reportHeader.Name);
                  throw;
             }
         }

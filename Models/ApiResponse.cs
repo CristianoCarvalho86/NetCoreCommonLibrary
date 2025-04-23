@@ -12,31 +12,31 @@ namespace NetCoreCommonLibrary.Models
         /// <summary>
         /// Indica se a requisição foi bem-sucedida.
         /// </summary>
-        public bool Success { get; private set; }
+        public bool Success { get; protected set; }
         
         /// <summary>
         /// Mensagem descritiva associada à resposta (sucesso ou erro).
         /// </summary>
-        public string Message { get; private set; } = string.Empty;
+        public string Message { get; protected set; } = string.Empty;
         
         /// <summary>
         /// Código de status HTTP da resposta.
         /// </summary>
-        public HttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode StatusCode { get; protected set; }
         
         /// <summary>
         /// Dados retornados pela API (pode ser nulo em caso de erro).
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public T? Data { get; private set; }
+        public T? Data { get; protected set; }
         
         /// <summary>
         /// Lista de mensagens de erro detalhadas (se houver).
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IReadOnlyList<string>? Errors { get; private set; }
+        public IReadOnlyList<string>? Errors { get; protected set; }
 
-        private ApiResponse() { }
+        protected ApiResponse() { }
 
         /// <summary>
         /// Cria uma resposta de sucesso com dados.
@@ -105,19 +105,18 @@ namespace NetCoreCommonLibrary.Models
     /// </summary>
     public class ApiResponse : ApiResponse<object>
     {
-        private ApiResponse() : base() { }
+        protected ApiResponse() : base() { }
 
         /// <summary>
         /// Cria uma resposta de sucesso sem dados.
         /// </summary>
         public static ApiResponse CreateSuccess(string message = "Operation completed successfully", HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            var baseResponse = ApiResponse<object>.CreateSuccess(null!, message, statusCode);
             return new ApiResponse
             {
-                Success = baseResponse.Success,
-                Message = baseResponse.Message,
-                StatusCode = baseResponse.StatusCode
+                Success = true,
+                Message = message,
+                StatusCode = statusCode
             };
         }
 
@@ -126,13 +125,12 @@ namespace NetCoreCommonLibrary.Models
         /// </summary>
         public static new ApiResponse CreateError(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest, List<string>? errors = null)
         {
-            var baseResponse = ApiResponse<object>.CreateError(message, statusCode, errors);
             return new ApiResponse
             {
-                Success = baseResponse.Success,
-                Message = baseResponse.Message,
-                StatusCode = baseResponse.StatusCode,
-                Errors = baseResponse.Errors
+                Success = false,
+                Message = message,
+                StatusCode = statusCode,
+                Errors = errors?.AsReadOnly()
             };
         }
         
