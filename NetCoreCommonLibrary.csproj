@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <!-- Adicionar dependências aqui se necessário, por exemplo, para EF Core -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" /> 
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
-    <PackageReference Include="Dapper" Version="2.1.28" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" /> 
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.416.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" /> 
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.4" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" /> 
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.8.0" />
   </ItemGroup>
 
 </Project> 
